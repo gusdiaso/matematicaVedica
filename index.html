@@ -4,31 +4,130 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css" />
         <title>Document</title>
     </head>
     <body>
-        
         <h1>Matemática Védica</h1>
         <main>
             <div class="calculadora">
-                <input type="text" id="input" disabled>
+                <input type="text" id="input" disabled />
                 <div class="buttons">
-                    <button class="button" id="button_soma">+</button>
-                    <button class="button" id="button_sub">-</button>
-                    <button class="button" id="button_mult">x</button>
-                    <button class="button" id="button_div">÷</button>
-                    <button class="button" id="button_0">0</button>
-                    <button class="button" id="button_1">1</button>
-                    <button class="button" id="button_2">2</button>
-                    <button class="button" id="button_3">3</button>
-                    <button class="button" id="button_4">4</button>
-                    <button class="button" id="button_5">5</button>
-                    <button class="button" id="button_6">6</button>
-                    <button class="button" id="button_7">7</button>
-                    <button class="button" id="button_8">8</button>
-                    <button class="button" id="button_9">9</button>
-                    <button class="button button_calcular" type="submit">Calcular</button>
+                    <button
+                        class="button"
+                        id="button_soma"
+                        value="+"
+                        onclick="insereInput(value)"
+                    >
+                        +
+                    </button>
+                    <button
+                        class="button"
+                        id="button_sub"
+                        value="-"
+                        onclick="insereInput(value)"
+                    >
+                        -
+                    </button>
+                    <button
+                        class="button"
+                        id="button_mult"
+                        value="*"
+                        onclick="insereInput(value)"
+                    >
+                        x
+                    </button>
+                    <button
+                        class="button"
+                        id="button_div"
+                        value="/"
+                        onclick="insereInput(value)"
+                    >
+                        ÷
+                    </button>
+                    <button
+                        class="button"
+                        id="button_0"
+                        value="0"
+                        onclick="insereInput(value)"
+                    >
+                        0
+                    </button>
+                    <button
+                        class="button"
+                        id="button_1"
+                        value="1"
+                        onclick="insereInput(value)"
+                    >
+                        1
+                    </button>
+                    <button
+                        class="button"
+                        id="button_2"
+                        value="2"
+                        onclick="insereInput(value)"
+                    >
+                        2
+                    </button>
+                    <button
+                        class="button"
+                        id="button_3"
+                        value="3"
+                        onclick="insereInput(value)"
+                    >
+                        3
+                    </button>
+                    <button
+                        class="button"
+                        id="button_4"
+                        value="4"
+                        onclick="insereInput(value)"
+                    >
+                        4
+                    </button>
+                    <button
+                        class="button"
+                        id="button_5"
+                        value="5"
+                        onclick="insereInput(value)"
+                    >
+                        5
+                    </button>
+                    <button
+                        class="button"
+                        id="button_6"
+                        value="6"
+                        onclick="insereInput(value)"
+                    >
+                        6
+                    </button>
+                    <button
+                        class="button"
+                        id="button_7"
+                        value="7"
+                        onclick="insereInput(value)"
+                    >
+                        7
+                    </button>
+                    <button
+                        class="button"
+                        id="button_8"
+                        value="8"
+                        onclick="insereInput(value)"
+                    >
+                        8
+                    </button>
+                    <button
+                        class="button"
+                        id="button_9"
+                        value="9"
+                        onclick="insereInput(value)"
+                    >
+                        9
+                    </button>
+                    <button class="button button_calcular" type="submit">
+                        Calcular
+                    </button>
                 </div>
             </div>
         </main>
