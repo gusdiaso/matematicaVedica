@@ -38,21 +38,16 @@ main {
     text-align: right;
 }
 
-
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
 }
 
-.calculadora .button_calcular {
-    grid-column-start: 3;
-    grid-column-end: 5;
-}
-
 .button {
     padding: 10px 20px;
     border: 1px gray solid;
+    max-width: 70px;
 }
 
 .button:hover {

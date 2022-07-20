@@ -1,6 +1,8 @@
 //_____________ DECLARAÇÃO _____________//
 
 let operador = undefined
+let stringSeparada
+let arrayCaracter
 
 const input = document.getElementById('input'),
     button_calcular = document.querySelector('.button_calcular')
@@ -8,10 +10,14 @@ const input = document.getElementById('input'),
 //_______________ CODIGO _______________//
 
 button_calcular.addEventListener('click', () => {
-    const stringSeparada = separaString(input.value)
+    stringSeparada = separaString(input.value)
+
+    //quando um operador for digitado por ultimo, ele remove string vazia e o ultimo operador
     if (stringSeparada[stringSeparada.length - 1] == '') {
         stringSeparada.pop()
+        input.value = stringSeparada.join(operador)
     }
+
     if (input.value == '') {
         alert('Nada foi digitado')
     }
@@ -33,16 +39,23 @@ function pegaOperador(string) {
     for (let i = 0; i < vetorCaracter.length; i++) {
         if (separador.includes(vetorCaracter[i])) {
             separadorSelecionado = vetorCaracter[i]
-            console.log(separadorSelecionado)
         }
     }
     return separadorSelecionado
 }
 
+//GAMBIARRA PRA APAGAR --- ARRUMAR
+function apagaUltimoDigito() {
+    if (input.value != '') {
+        arrayCaracter.pop()
+        input.value = arrayCaracter.join('')
+    }
+}
+
 function insereInput(valor) {
     const inicialProibido = ['0', '+', '-', '*', '/']
     const numeros = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    const arrayCaracter = input.value.split('')
+    arrayCaracter = input.value.split('')
 
     //pega variavel glogal operador e define o primeiro operador inserido como operador "único"
     if (operador == undefined) {
