@@ -4,8 +4,69 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
         <title>Document</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+                    sans-serif;
+            }
+
+            h1 {
+                text-align: center;
+                margin: 20px 0 70px;
+            }
+
+            main {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .calculadora {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: rgb(37, 37, 37);
+                padding: 30px;
+                border-radius: 20px;
+            }
+
+            .calculadora #input {
+                width: 100%;
+                padding: 10px 10px;
+                margin-bottom: 20px;
+                background-color: #ddd;
+                text-align: right;
+            }
+
+            .buttons {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+            }
+
+            .button {
+                padding: 10px 20px;
+                border: 1px gray solid;
+                max-width: 70px;
+            }
+
+            .button:hover {
+                background-color: rgb(199, 199, 199);
+            }
+
+            .button:active {
+                background-color: rgb(255, 255, 255);
+            }
+        </style>
     </head>
     <body>
         <h1>Matemática Védica</h1>
@@ -111,15 +172,126 @@
                     >
                         9
                     </button>
-                    <button class="button" onclick="apagaUltimoDigito()">
-                        C
-                    </button>
+                    <button class="button" onclick="deletar()">C</button>
                     <button class="button button_calcular" type="submit">
                         =
                     </button>
                 </div>
             </div>
         </main>
-        <script src="app.js"></script>
+        <script>
+            //_____________ DECLARAÇÃO _____________//
+
+            let operador = undefined
+            let stringSeparada
+            let arrayCaracter = []
+            let contador = 0
+
+            const input = document.getElementById('input'),
+                button_calcular = document.querySelector('.button_calcular')
+
+            //_______________ CODIGO _______________//
+
+            button_calcular.addEventListener('click', () => {
+                stringSeparada = separaString(input.value)
+
+                //quando um operador for digitado por ultimo, ele remove string vazia e o ultimo operador
+                if (stringSeparada[stringSeparada.length - 1] == '') {
+                    stringSeparada.pop()
+                    input.value = stringSeparada.join(operador)
+                }
+
+                if (input.value == '') {
+                    alert('Nada foi digitado')
+                }
+                console.log(stringSeparada)
+            })
+
+            function separaString(stringParaSeparar) {
+                let separadorSelecionado = pegaOperador(stringParaSeparar)
+                //pega cada numero separado pelo operador
+                return stringParaSeparar.split(separadorSelecionado)
+            }
+
+            function pegaOperador(string) {
+                const separador = ['+', '-', '*', '/']
+                let vetorCaracter = string.split('')
+                let separadorSelecionado
+
+                //pega operador
+                for (let i = 0; i < vetorCaracter.length; i++) {
+                    if (separador.includes(vetorCaracter[i])) {
+                        separadorSelecionado = vetorCaracter[i]
+                    }
+                }
+                return separadorSelecionado
+            }
+
+            //GAMBIARRA PRA APAGAR --- ARRUMAR
+            function deletar() {
+                if (input.value != '') {
+                    arrayCaracter.pop()
+                    input.value = arrayCaracter.join('')
+                    arrayCaracter = input.value.split('')
+                    contador -= 1
+                }
+            }
+
+            function insereInput(valor) {
+                const inicialProibido = ['0', '+', '-', '*', '/']
+                const numeros = [
+                    '0',
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7',
+                    '8',
+                    '9'
+                ]
+                let i
+
+                //pega variavel glogal operador e define o primeiro operador inserido como operador "único"
+                operador = pegaOperador(input.value)
+
+                //validação
+
+                //primeiro input nao pode ser ['0', '+', '-', '*', '/']
+                if (
+                    input.value.length == 0 &&
+                    inicialProibido.includes(valor)
+                ) {
+                    alert(
+                        'Operação não pode começar com um zero ou com operadores!'
+                    )
+                }
+                //pós operador o input nao pode ser ['0', '+', '-', '*', '/']
+                else if (
+                    arrayCaracter[arrayCaracter.length - 1] == operador &&
+                    operador != undefined &&
+                    inicialProibido.includes(valor)
+                ) {
+                    alert('Não insira um zero ou operador após outro operador!')
+                }
+                //proibir entrada de outro operador sem ser o operador unico
+                else if (
+                    valor != operador &&
+                    operador != undefined &&
+                    !numeros.includes(valor)
+                ) {
+                    alert('Utilize apenas o primeiro operador escolhido!')
+                    console.log(operador)
+                }
+                //outros casos sao permitidos
+                else {
+                    input.value += valor
+                    arrayCaracter[contador] = valor
+                    contador += 1
+                    console.log(arrayCaracter)
+                }
+            }
+        </script>
     </body>
 </html>
