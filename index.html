@@ -395,15 +395,17 @@
                         numero =
                             parseInt(stringSeparada[i]) +
                             parseInt(stringSeparada[j])
-                        console.log(numero)
 
                         if (numero % 10 == 0) {
                             console.log('entrou')
-                            vetor[cont] = numero
+                            vetor[cont] =
+                                parseInt(stringSeparada[i]) +
+                                parseInt(stringSeparada[j])
+                            console.log('vetor', vetor[cont]) //entender pq ta dando undefined
                             cont++
                         }
 
-                        console.log(vetor[cont]) //entender pq ta dando undefined
+                        //FAZER PARTE QUE REMOVE O NUMERO QUE JA SOMOU
                     }
                 }
             }
