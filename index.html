@@ -34,15 +34,17 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+                height: 100%;
             }
 
             .header {
-                background-color: rgb(83, 90, 90);
+                background-color: #535a5a;
+                width: 100vw;
                 height: 80px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                margin-bottom: 50px;
+                position: absolute;
             }
 
             .calculadora {
@@ -289,7 +291,7 @@
                 console.log(operador)
 
                 if (operador == '+') {
-                    soma()
+                    somaPuranapara()
                 }
             })
 
@@ -376,7 +378,7 @@
                 }
             }
 
-            function soma() {
+            function somaPuranapara() {
                 let i,
                     j,
                     numero,
