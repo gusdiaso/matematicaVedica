@@ -291,7 +291,7 @@
                 console.log(operador)
 
                 if (operador == '+') {
-                    somaPuranapara()
+                    soma()
                 }
             })
 
@@ -378,36 +378,37 @@
                 }
             }
 
-            function somaPuranapara() {
+            function soma() {
                 let i,
                     j,
-                    numero,
+                    numeroProvisorio,
                     vetor = [],
                     cont = 0
 
                 for (i = 0; i < stringSeparada.length; i++) {
-                    for (j = 0; j < stringSeparada.length; j++) {
-                        //evita de somar o mesmo numero ou numero ja somado 2 vezes
-                        if (j <= i) {
-                            continue
-                        }
+                    //PERCORRE O ARRAY DE NUMEROS DE INPUT
 
-                        numero =
-                            parseInt(stringSeparada[i]) +
-                            parseInt(stringSeparada[j])
+                    quantidadeCaracter = stringSeparada[i].length //QUANTIDADE DE NUMEROS O NUMERO TEM
 
-                        if (numero % 10 == 0) {
-                            console.log('entrou')
+                    for (j = quantidadeCaracter - 1; j >= 0; j--) {
+                        numeroProvisorio =
+                            parseInt(stringSeparada[i]) / Math.pow(10, j)
+
+                        //MENTE BUGADA, SOCORRO
+                        if (vetor[cont - 1] == undefined) {
                             vetor[cont] =
-                                parseInt(stringSeparada[i]) +
-                                parseInt(stringSeparada[j])
-                            console.log('vetor', vetor[cont]) //entender pq ta dando undefined
-                            cont++
+                                Math.floor(numeroProvisorio) * Math.pow(10, j)
+                        } else {
+                            vetor[cont] =
+                                vetor[cont - 1] -
+                                Math.floor(numeroProvisorio) * Math.pow(10, j)
                         }
+                        cont++
 
-                        //FAZER PARTE QUE REMOVE O NUMERO QUE JA SOMOU
+                        //TEM QUE TENTAR REDUZIR O PRIMEIRO VALOR DO PROXIMO
                     }
                 }
+                console.log(vetor)
             }
         </script>
     </body>
