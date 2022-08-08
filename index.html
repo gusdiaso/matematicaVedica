@@ -381,35 +381,21 @@
             function soma() {
                 let i,
                     j,
-                    numeroProvisorio,
-                    vetor = [],
+                    vetorNumero = [],
                     cont = 0
 
                 for (i = 0; i < stringSeparada.length; i++) {
-                    //PERCORRE O ARRAY DE NUMEROS DE INPUT
+                    vetorNumero[cont] = stringSeparada[i].split('') //SEPARA OS NUMERO POR NUMERO
 
-                    quantidadeCaracter = stringSeparada[i].length //QUANTIDADE DE NUMEROS O NUMERO TEM
-
-                    for (j = quantidadeCaracter - 1; j >= 0; j--) {
-                        numeroProvisorio =
-                            parseInt(stringSeparada[i]) / Math.pow(10, j)
-
-                        //MENTE BUGADA, SOCORRO
-                        if (vetor[cont - 1] == undefined) {
-                            vetor[cont] =
-                                Math.floor(numeroProvisorio) * Math.pow(10, j)
-                        } else {
-                            vetor[cont] =
-                                vetor[cont - 1] -
-                                Math.floor(numeroProvisorio) * Math.pow(10, j)
-                        }
-                        cont++
-
-                        //TEM QUE TENTAR REDUZIR O PRIMEIRO VALOR DO PROXIMO
-                    }
+                    cont++
                 }
-                console.log(vetor)
+                console.log(vetorNumero)
             }
+
+            //a gente tem que separar cada numero em um array!!!!
+            //tipo, se tiver somando 33+23+123, nao pode ser um array com
+            // {33, 23, 123} tem que ser cada numero um array, {33}, {23}, {123}
+            //to tentando fazer uma parada, calma ai
         </script>
     </body>
 </html>
