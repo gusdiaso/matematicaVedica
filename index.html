@@ -1,440 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-      rel="stylesheet"
-    />
-    <title>Document</title>
-    <style>
-      * {
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-        height: 100vh;
-      }
-
-      h1 {
-        text-align: center;
-        color: white;
-      }
-
-      main {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-      }
-
-      .header {
-        background-color: #535a5a;
-        width: 100vw;
-        height: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-      }
-
-      .calculadora {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background-color: rgb(16, 17, 24);
-        padding: 30px;
-        border-radius: 20px;
-      }
-
-      .calculadora #input {
-        max-width: 234.2px;
-        width: 100%;
-        height: 45px;
-        border: none;
-        padding: 0 10px;
-        font-size: 14px;
-        margin-bottom: 20px;
-        word-wrap: break-word;
-        background-color: rgb(147, 175, 121);
-        text-align: right;
-        writing-mode: horizontal-tb !important;
-        font-family: "Press Start 2P", cursive;
-      }
-
-      .buttons {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        background-color: rgb(16, 17, 24);
-      }
-
-      .button {
-        padding: 8px 12px;
-        border: none;
-        background-color: rgb(124, 121, 121);
-        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-        color: white;
-        font-size: 1rem;
-      }
-      .del {
-        background-color: rgb(223, 65, 65);
-      }
-      .del:hover {
-        background-color: rgb(151, 36, 36);
-      }
-
-      .button:hover {
-        background-color: rgb(199, 199, 199);
-      }
-
-      .button:active {
-        background-color: rgb(255, 255, 255);
-      }
-
-      .footer {
-        height: 100px;
-        background-color: rgb(83, 90, 90);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        color: white;
-      }
-
-      .row {
-        border: 1px solid gray;
-        width: 100%;
-      }
-
-      .integrantes-grupo {
-        width: 100%;
-        flex-direction: row;
-        display: flex;
-        justify-content: space-evenly;
-      }
-    </style>
-  </head>
-  <body>
-    <header class="header">
-      <h1>Matemática Védica</h1>
-    </header>
-
-    <main>
-      <div class="calculadora">
-        <input type="text" id="input" disabled />
-        <div class="buttons">
-          <button class="button" value="+" onclick="insereInput(value)">
-            +
-          </button>
-          <button class="button" value="-" onclick="insereInput(value)">
-            -
-          </button>
-          <button class="button" value="*" onclick="insereInput(value)">
-            x
-          </button>
-          <button class="button" value="/" onclick="insereInput(value)">
-            ÷
-          </button>
-          <button class="button" value="0" onclick="insereInput(value)">
-            0
-          </button>
-          <button class="button" value="1" onclick="insereInput(value)">
-            1
-          </button>
-          <button class="button" value="2" onclick="insereInput(value)">
-            2
-          </button>
-          <button class="button" value="3" onclick="insereInput(value)">
-            3
-          </button>
-          <button class="button" value="4" onclick="insereInput(value)">
-            4
-          </button>
-          <button class="button" value="5" onclick="insereInput(value)">
-            5
-          </button>
-          <button class="button" value="6" onclick="insereInput(value)">
-            6
-          </button>
-          <button class="button" value="7" onclick="insereInput(value)">
-            7
-          </button>
-          <button class="button" value="8" onclick="insereInput(value)">
-            8
-          </button>
-          <button class="button" value="9" onclick="insereInput(value)">
-            9
-          </button>
-          <button class="button del" onclick="deletar()">DEL</button>
-          <button class="button button_calcular" type="submit">=</button>
-        </div>
-      </div>
-
-      <div class="show-process"></div>
-    </main>
-
-    <footer class="footer">
-      <div>
-        <h2>Integrantes do grupo:</h2>
-      </div>
-
-      <div class="row"></div>
-
-      <div class="integrantes-grupo">
-        <h4>Gustavo Dias</h4>
-        <h4>Guilherme Pensabem</h4>
-        <h4>Sarah Schayder</h4>
-        <h4>Jéssica Diniz</h4>
-        <h4>Thiago Bastos</h4>
-        <h4>Letícia Bussinger</h4>
-      </div>
-    </footer>
-
-    <script>
-      //_____________ DECLARAÇÃO _____________//
-
-      let operador = undefined;
-      let stringSeparada;
-      let arrayCaracter = [];
-      let contador = 0;
-
-      const input = document.getElementById("input"),
-        button_calcular = document.querySelector(".button_calcular");
-      let show_process = document.querySelector(".show-process");
-
-      //_______________ CODIGO _______________//
-
-      button_calcular.addEventListener("click", () => {
-        stringSeparada = separaString(input.value);
-
-        //quando um operador for digitado por ultimo, ele remove string vazia e o ultimo operador
-        if (stringSeparada[stringSeparada.length - 1] == "") {
-          stringSeparada.pop();
-          input.value = stringSeparada.join(operador);
-        }
-
-        if (input.value == "") {
-          alert("Nada foi digitado");
-        }
-        console.log(stringSeparada);
-        console.log(operador);
-
-        if (operador == "+") {
-          soma();
-        }
-      });
-
-      function separaString(stringParaSeparar) {
-        let separadorSelecionado = pegaOperador(stringParaSeparar);
-        //pega cada numero separado pelo operador
-        return stringParaSeparar.split(separadorSelecionado);
-      }
-
-      function pegaOperador(string) {
-        const separador = ["+", "-", "*", "/"];
-        let vetorCaracter = string.split("");
-        let separadorSelecionado;
-
-        //pega operador
-        for (let i = 0; i < vetorCaracter.length; i++) {
-          if (separador.includes(vetorCaracter[i])) {
-            separadorSelecionado = vetorCaracter[i];
-          }
-        }
-        return separadorSelecionado;
-      }
-
-      function deletar() {
-        if (input.value != "") {
-          arrayCaracter.pop();
-          input.value = arrayCaracter.join("");
-          arrayCaracter = input.value.split("");
-          contador -= 1;
-        }
-      }
-
-      function insereInput(valor) {
-        const inicialProibido = ["0", "+", "-", "*", "/"];
-        const numeros = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-        let i;
-
-        //pega variavel glogal operador e define o primeiro operador inserido como operador "único"
-        operador = pegaOperador(input.value);
-
-        //validação
-
-        //primeiro input nao pode ser ['0', '+', '-', '*', '/']
-        if (input.value.length == 0 && inicialProibido.includes(valor)) {
-          alert("Operação não pode começar com um zero ou com operadores!");
-        }
-        //pós operador o input nao pode ser ['0', '+', '-', '*', '/']
-        else if (
-          arrayCaracter[arrayCaracter.length - 1] == operador &&
-          operador != undefined &&
-          inicialProibido.includes(valor)
-        ) {
-          alert("Não insira um zero ou operador após outro operador!");
-        }
-        //proibir entrada de outro operador sem ser o operador unico
-        else if (
-          valor != operador &&
-          operador != undefined &&
-          !numeros.includes(valor)
-        ) {
-          alert("Utilize apenas o primeiro operador escolhido!");
-        }
-        //outros casos sao permitidos
-        else {
-          input.value += valor;
-          arrayCaracter[contador] = valor;
-          contador += 1;
-        }
-      }
-
-      function soma() {
-        let i, j, k, numeroProvisorio, restoProvisorio, aux;
-        let somatorio = 0;
-        let vetorParaExpor = [];
-        let vetor = [];
-        let cont = 0;
-        let vetorSoma = [];
-        let vetorSomatorio = [];
-        k = 0;
-        let count = 1;
-
-        for (i = 0; i < stringSeparada.length; i++) {
-          //PERCORRE O ARRAY DE NUMEROS DE INPUT
-
-          quantidadeCaracter = stringSeparada[i].length; //QUANTIDADE DE NUMEROS O NUMERO TEM
-          if (i == 0) {
-            show_process.innerHTML = `somando ${stringSeparada[i]}`;
-          } else {
-            show_process.innerHTML += ` + ${stringSeparada[i]}`;
-          }
-
-          for (j = quantidadeCaracter - 1; j >= 0; j--) {
-            if (j == quantidadeCaracter - 1) {
-              numeroProvisorio = parseInt(stringSeparada[i]) / Math.pow(10, j); // divide o numero pela potencia, pela primeira vez
-              restoProvisorio = parseInt(stringSeparada[i]) % Math.pow(10, j); // pega o resto do numero
-            } else {
-              // se o for estiver na segunda iteração ou superior
-              restoProvisorio = parseInt(restoProvisorio) / Math.pow(10, j);
-              aux = restoProvisorio * Math.pow(10, j); // aux vai receber o resto inteiro, pois, por exemplo, se o num for 52, 52/10 = 5.2, precisamos do 52 para a proxima iteração, logo basta fazer aux = 5.2*10
-              aux = aux % Math.pow(10, j); //aux vai receber o resto, no exemplo acima, 52%10 = 2
-              console.log("esse" + restoProvisorio);
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
+        <title>Document</title>
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
             }
 
-            if (j == quantidadeCaracter - 1) {
-              vetor[cont] = Math.floor(numeroProvisorio); // coloca no menor inteiro mais proximo, exemplo 5.5 = 5
-              vetor[cont] = vetor[cont] * Math.pow(10, j);
-            } else {
-              vetor[cont] = Math.floor(restoProvisorio);
-              vetor[cont] = vetor[cont] * Math.pow(10, j);
-              console.log(restoProvisorio);
-              restoProvisorio = aux; // resto recebe o auxiliar para que a conta prossiga
+            body {
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+                    sans-serif;
+                height: 100vh;
             }
 
-            cont++;
+            h1 {
+                text-align: center;
+                color: white;
+            }
 
-            //TEM QUE TENTAR REDUZIR O PRIMEIRO VALOR DO PROXIMO
-          }
-        }
+            main {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
 
-        for (i = 0; i < vetor.length; i++) {
-          if (i == 0) {
-            show_process.innerHTML += `<br/> transformando para números divisiveis por 10: ${vetor[i]}`;
-          } else {
-            show_process.innerHTML += ` + ${vetor[i]}`;
-          }
-          vetor[i] = String(vetor[i]);
-        }
-        let maior = vetor[0].length;
-        for (i = 1; i < vetor.length; i++) {
-          if (vetor[i].length > maior) {
-            maior = vetor[i].length;
-          }
-        }
-        console.log(maior);
-        for (i = 0; i < maior; i++) {
-          k = vetor.length;
-          // vetorParaExpor[i] = "0";
-          while (k > 0) {
-            // console.log(j);
-            // console.log(vetor[k - 1]);
-            // console.log(vetor[i]);
+            .header {
+                background-color: #535a5a;
+                width: 100vw;
+                height: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+            }
 
-            console.log("valor de i " + i);
-            console.log("valor de k " + k);
+            .calculadora {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-color: rgb(16, 17, 24);
+                padding: 30px;
+                border-radius: 20px;
+            }
 
-            // if (i == k - 1) {
-            //   vetorParaExpor[i] = `${vetor[k - 1]} `;
-            // }
+            .calculadora #input {
+                max-width: 234.2px;
+                width: 100%;
+                height: 45px;
+                border: none;
+                padding: 0 10px;
+                font-size: 14px;
+                margin-bottom: 20px;
+                word-wrap: break-word;
+                background-color: rgb(147, 175, 121);
+                text-align: right;
+                writing-mode: horizontal-tb !important;
+                font-family: 'Press Start 2P', cursive;
+            }
 
-            if (i != k) {
-              if (count == 1) {
-                if (vetor[i].length == vetor[k - 1].length) {
-                  vetorParaExpor[i] = `${vetor[k - 1]} `;
-                  count++;
+            .buttons {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+                background-color: rgb(16, 17, 24);
+            }
+
+            .button {
+                padding: 8px 12px;
+                border: none;
+                background-color: rgb(124, 121, 121);
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+                    sans-serif;
+                color: white;
+                font-size: 1rem;
+            }
+            .del {
+                background-color: rgb(223, 65, 65);
+            }
+            .del:hover {
+                background-color: rgb(151, 36, 36);
+            }
+
+            .button:hover {
+                background-color: rgb(199, 199, 199);
+            }
+
+            .button:active {
+                background-color: rgb(255, 255, 255);
+            }
+
+            .footer {
+                height: 100px;
+                background-color: rgb(83, 90, 90);
+                display: flex;
+                gap: 10px;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                color: white;
+            }
+
+            .row {
+                border: 1px solid gray;
+                width: 100%;
+            }
+
+            .integrantes-grupo {
+                width: 100%;
+                flex-direction: row;
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            .show-process {
+                max-width: 90%;
+                background-color: rgb(83, 90, 90);
+                color: white;
+                padding: 10px;
+                margin-top: 20px;
+                border-radius: 10px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <h1>Matemática Védica</h1>
+        </header>
+
+        <main>
+            <div class="calculadora">
+                <input type="text" id="input" disabled />
+                <div class="buttons">
+                    <button
+                        class="button"
+                        value="+"
+                        onclick="insereInput(value)"
+                    >
+                        +
+                    </button>
+                    <button
+                        class="button"
+                        value="-"
+                        onclick="insereInput(value)"
+                    >
+                        -
+                    </button>
+                    <button
+                        class="button"
+                        value="*"
+                        onclick="insereInput(value)"
+                    >
+                        x
+                    </button>
+                    <button
+                        class="button"
+                        value="/"
+                        onclick="insereInput(value)"
+                    >
+                        ÷
+                    </button>
+                    <button
+                        class="button"
+                        value="0"
+                        onclick="insereInput(value)"
+                    >
+                        0
+                    </button>
+                    <button
+                        class="button"
+                        value="1"
+                        onclick="insereInput(value)"
+                    >
+                        1
+                    </button>
+                    <button
+                        class="button"
+                        value="2"
+                        onclick="insereInput(value)"
+                    >
+                        2
+                    </button>
+                    <button
+                        class="button"
+                        value="3"
+                        onclick="insereInput(value)"
+                    >
+                        3
+                    </button>
+                    <button
+                        class="button"
+                        value="4"
+                        onclick="insereInput(value)"
+                    >
+                        4
+                    </button>
+                    <button
+                        class="button"
+                        value="5"
+                        onclick="insereInput(value)"
+                    >
+                        5
+                    </button>
+                    <button
+                        class="button"
+                        value="6"
+                        onclick="insereInput(value)"
+                    >
+                        6
+                    </button>
+                    <button
+                        class="button"
+                        value="7"
+                        onclick="insereInput(value)"
+                    >
+                        7
+                    </button>
+                    <button
+                        class="button"
+                        value="8"
+                        onclick="insereInput(value)"
+                    >
+                        8
+                    </button>
+                    <button
+                        class="button"
+                        value="9"
+                        onclick="insereInput(value)"
+                    >
+                        9
+                    </button>
+                    <button class="button del" onclick="deletar()">DEL</button>
+                    <button class="button button_calcular" type="submit">
+                        =
+                    </button>
+                </div>
+            </div>
+
+            <div class="show-process">
+                <p>
+                    Faça a operação para exibir o passo a passo da matematica
+                    védica
+                </p>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div>
+                <h2>Integrantes do grupo:</h2>
+            </div>
+
+            <div class="row"></div>
+
+            <div class="integrantes-grupo">
+                <h4>Gustavo Dias</h4>
+                <h4>Guilherme Pensabem</h4>
+                <h4>Sarah Schayder</h4>
+                <h4>Jéssica Diniz</h4>
+                <h4>Thiago Bastos</h4>
+                <h4>Letícia Bussinger</h4>
+            </div>
+        </footer>
+
+        <script>
+            //_____________ DECLARAÇÃO _____________//
+
+            let operador = undefined
+            let stringSeparada
+            let arrayCaracter = []
+            let contador = 0
+
+            const input = document.getElementById('input'),
+                button_calcular = document.querySelector('.button_calcular')
+            let show_process = document.querySelector('.show-process')
+
+            //_______________ CODIGO _______________//
+
+            button_calcular.addEventListener('click', () => {
+                stringSeparada = separaString(input.value)
+
+                //quando um operador for digitado por ultimo, ele remove string vazia e o ultimo operador
+                if (stringSeparada[stringSeparada.length - 1] == '') {
+                    stringSeparada.pop()
+                    input.value = stringSeparada.join(operador)
                 }
-              } else {
-                if (vetor[i].length == vetor[k - 1].length) {
-                  vetorParaExpor[i] += `+ ${vetor[k - 1]} `;
-                  console.log("vetor i " + vetor[i]);
-                  console.log("vetor para expor " + vetorParaExpor[i]);
-                  count++;
-                  if (k - 1 == 0) {
-                    count = 1;
-                  }
+
+                if (input.value == '') {
+                    alert('Nada foi digitado')
                 }
-              }
+                console.log(stringSeparada)
+                console.log(operador)
+
+                if (operador == '+') {
+                    soma()
+                }
+            })
+
+            function separaString(stringParaSeparar) {
+                let separadorSelecionado = pegaOperador(stringParaSeparar)
+                //pega cada numero separado pelo operador
+                return stringParaSeparar.split(separadorSelecionado)
             }
-            k--;
-          }
 
-          if (i == 0) {
-            show_process.innerHTML += `<br/> Colocando os números com mesmo tamanho juntos: ${vetorParaExpor[i]}`;
-          } else {
-            show_process.innerHTML += `+ ${vetorParaExpor[i]} `;
-          }
-          vetor[i] = String(vetor[i]);
-        }
-        console.log(vetorParaExpor);
-        j = 0;
-        k = 0;
-        for (i = 0; i < vetor.length; i++) {
-          if (i % vetor[i].length == 0) {
-            k++;
-          }
-          vetorSomatorio[i] =
-            parseInt(vetor[i]) + parseInt(vetorSoma[k - 1][i]);
-          somatorio = somatorio + parseInt(vetor[i]);
-          if (i == 0) {
-            show_process.innerHTML += `<br/> Teremos a seguinte soma: ${vetorSomatorio[i]}`;
-          } else {
-            show_process.innerHTML += ` + ${vetorSomatorio[i]}`;
-          }
-        }
+            function pegaOperador(string) {
+                const separador = ['+', '-', '*', '/']
+                let vetorCaracter = string.split('')
+                let separadorSelecionado
 
-        show_process.innerHTML += `Logo, teremos o seguinte resultado: ${somatorio}`;
+                //pega operador
+                for (let i = 0; i < vetorCaracter.length; i++) {
+                    if (separador.includes(vetorCaracter[i])) {
+                        separadorSelecionado = vetorCaracter[i]
+                    }
+                }
+                return separadorSelecionado
+            }
 
-        console.log(somatorio);
-        console.log(vetorParaExpor);
-        console.log(vetor);
-      }
-    </script>
-  </body>
+            function deletar() {
+                if (input.value != '') {
+                    arrayCaracter.pop()
+                    input.value = arrayCaracter.join('')
+                    arrayCaracter = input.value.split('')
+                    contador -= 1
+                }
+            }
+
+            function insereInput(valor) {
+                const inicialProibido = ['0', '+', '-', '*', '/']
+                const numeros = [
+                    '0',
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6',
+                    '7',
+                    '8',
+                    '9'
+                ]
+                let i
+
+                //pega variavel glogal operador e define o primeiro operador inserido como operador "único"
+                operador = pegaOperador(input.value)
+
+                //validação
+
+                //primeiro input nao pode ser ['0', '+', '-', '*', '/']
+                if (
+                    input.value.length == 0 &&
+                    inicialProibido.includes(valor)
+                ) {
+                    alert(
+                        'Operação não pode começar com um zero ou com operadores!'
+                    )
+                }
+                //pós operador o input nao pode ser ['0', '+', '-', '*', '/']
+                else if (
+                    arrayCaracter[arrayCaracter.length - 1] == operador &&
+                    operador != undefined &&
+                    inicialProibido.includes(valor)
+                ) {
+                    alert('Não insira um zero ou operador após outro operador!')
+                }
+                //proibir entrada de outro operador sem ser o operador unico
+                else if (
+                    valor != operador &&
+                    operador != undefined &&
+                    !numeros.includes(valor)
+                ) {
+                    alert('Utilize apenas o primeiro operador escolhido!')
+                }
+                //outros casos sao permitidos
+                else {
+                    input.value += valor
+                    arrayCaracter[contador] = valor
+                    contador += 1
+                }
+            }
+
+            function soma() {
+                let i, j, k, numeroProvisorio, restoProvisorio, aux
+                let somatorio = 0
+                let vetorParaExpor = []
+                let vetor = []
+                let cont = 0
+                let vetorSoma = []
+                let vetorSomatorio = []
+                k = 0
+                let count = 1
+
+                for (i = 0; i < stringSeparada.length; i++) {
+                    //PERCORRE O ARRAY DE NUMEROS DE INPUT
+
+                    quantidadeCaracter = stringSeparada[i].length //QUANTIDADE DE NUMEROS O NUMERO TEM
+                    if (i == 0) {
+                        show_process.innerHTML = `Somando: ${stringSeparada[i]}`
+                    } else {
+                        show_process.innerHTML += ` + ${stringSeparada[i]}`
+                    }
+
+                    for (j = quantidadeCaracter - 1; j >= 0; j--) {
+                        if (j == quantidadeCaracter - 1) {
+                            numeroProvisorio =
+                                parseInt(stringSeparada[i]) / Math.pow(10, j) // divide o numero pela potencia, pela primeira vez
+                            restoProvisorio =
+                                parseInt(stringSeparada[i]) % Math.pow(10, j) // pega o resto do numero
+                        } else {
+                            // se o for estiver na segunda iteração ou superior
+                            restoProvisorio =
+                                parseInt(restoProvisorio) / Math.pow(10, j)
+                            aux = restoProvisorio * Math.pow(10, j) // aux vai receber o resto inteiro, pois, por exemplo, se o num for 52, 52/10 = 5.2, precisamos do 52 para a proxima iteração, logo basta fazer aux = 5.2*10
+                            aux = aux % Math.pow(10, j) //aux vai receber o resto, no exemplo acima, 52%10 = 2
+                            console.log('esse' + restoProvisorio)
+                        }
+
+                        if (j == quantidadeCaracter - 1) {
+                            vetor[cont] = Math.floor(numeroProvisorio) // coloca no menor inteiro mais proximo, exemplo 5.5 = 5
+                            vetor[cont] = vetor[cont] * Math.pow(10, j)
+                        } else {
+                            vetor[cont] = Math.floor(restoProvisorio)
+                            vetor[cont] = vetor[cont] * Math.pow(10, j)
+                            console.log(restoProvisorio)
+                            restoProvisorio = aux // resto recebe o auxiliar para que a conta prossiga
+                        }
+
+                        cont++
+
+                        //TEM QUE TENTAR REDUZIR O PRIMEIRO VALOR DO PROXIMO
+                    }
+                }
+
+                for (i = 0; i < vetor.length; i++) {
+                    if (i == 0) {
+                        show_process.innerHTML += `<br/><br/>Transformando os numeros para facilitar:<br/>${vetor[i]}`
+                    } else {
+                        show_process.innerHTML += ` + ${vetor[i]}`
+                    }
+                    vetor[i] = String(vetor[i])
+                }
+                let maior = vetor[0].length
+                for (i = 1; i < vetor.length; i++) {
+                    if (vetor[i].length > maior) {
+                        maior = vetor[i].length
+                    }
+                }
+                console.log(maior)
+                for (i = 0; i < maior; i++) {
+                    k = vetor.length
+                    // vetorParaExpor[i] = "0";
+                    while (k > 0) {
+                        // console.log(j);
+                        // console.log(vetor[k - 1]);
+                        // console.log(vetor[i]);
+
+                        console.log('valor de i ' + i)
+                        console.log('valor de k ' + k)
+
+                        // if (i == k - 1) {
+                        //   vetorParaExpor[i] = `${vetor[k - 1]} `;
+                        // }
+
+                        if (i != k) {
+                            if (count == 1) {
+                                if (vetor[i].length == vetor[k - 1].length) {
+                                    vetorParaExpor[i] = `${vetor[k - 1]} `
+                                    count++
+                                }
+                            } else {
+                                if (vetor[i].length == vetor[k - 1].length) {
+                                    vetorParaExpor[i] += `+ ${vetor[k - 1]} `
+                                    console.log('vetor i ' + vetor[i])
+                                    console.log(
+                                        'vetor para expor ' + vetorParaExpor[i]
+                                    )
+                                    count++
+                                }
+                            }
+                        }
+                        if (k == 1) {
+                            count = 1
+                        }
+                        k--
+                    }
+
+                    if (i == 0) {
+                        show_process.innerHTML += `<br/><br/> Colocando os números com mesmos indices juntos:<br/>${vetorParaExpor[i]}`
+                    } else {
+                        show_process.innerHTML += `+ ${vetorParaExpor[i]} `
+                    }
+                    vetor[i] = String(vetor[i])
+                }
+                console.log(vetorParaExpor)
+                j = 0
+                k = 0
+                for (i = 0; i < vetor.length; i++) {
+                    if (i % vetor[i].length == 0) {
+                        k++
+                    }
+                    vetorSomatorio[i] =
+                        parseInt(vetor[i]) + parseInt(vetorSoma[k - 1][i])
+                    somatorio = somatorio + parseInt(vetor[i])
+                    if (i == 0) {
+                        show_process.innerHTML += `<br/> Teremos a seguinte soma: ${vetorSomatorio[i]}`
+                    } else {
+                        show_process.innerHTML += ` + ${vetorSomatorio[i]}`
+                    }
+                }
+
+                show_process.innerHTML += `Logo, teremos o seguinte resultado: ${somatorio}`
+
+                console.log(somatorio)
+                console.log(vetorParaExpor)
+                console.log(vetor)
+            }
+        </script>
+    </body>
 </html>
