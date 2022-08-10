@@ -34,15 +34,6 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                height: max-content;
-            }
-
-            .header {
-                background-color: #535a5a;
-                height: 80px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
             }
 
             .calculadora {
@@ -52,7 +43,6 @@
                 align-items: center;
                 background-color: rgb(16, 17, 24);
                 padding: 30px;
-                margin-top: 50px;
                 border-radius: 20px;
             }
 
@@ -102,49 +92,18 @@
                 background-color: rgb(255, 255, 255);
             }
 
-            .footer {
-                height: 100px;
-                background-color: rgb(83, 90, 90);
-                display: flex;
-                gap: 10px;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                width: 100%;
-                position: absolute;
-                bottom: auto;
-                color: white;
-            }
-
-            .row {
-                border: 1px solid gray;
-                width: 100%;
-            }
-
-            .integrantes-grupo {
-                width: 100%;
-                flex-direction: row;
-                display: flex;
-                justify-content: space-evenly;
-            }
-
             .show-process {
                 max-width: 90%;
-                background-color: rgb(83, 90, 90);
+                background-color: #48b6ff;
                 color: white;
                 padding: 10px;
                 margin-top: 40px;
                 border-radius: 10px;
                 text-align: center;
-                margin-bottom: 58px;
             }
         </style>
     </head>
     <body>
-        <header class="header">
-            <h1>Matemática Védica</h1>
-        </header>
-
         <main>
             <div class="calculadora">
                 <input type="text" id="input" disabled />
@@ -262,23 +221,6 @@
             </div>
         </main>
 
-        <footer class="footer">
-            <div>
-                <h2>Integrantes do grupo:</h2>
-            </div>
-
-            <div class="row"></div>
-
-            <div class="integrantes-grupo">
-                <h4>Gustavo Dias</h4>
-                <h4>Guilherme Pensabem</h4>
-                <h4>Sarah Schayder</h4>
-                <h4>Jéssica Diniz</h4>
-                <h4>Thiago Bastos</h4>
-                <h4>Letícia Bussinger</h4>
-            </div>
-        </footer>
-
         <script>
             //_____________ DECLARAÇÃO _____________//
 
@@ -305,8 +247,6 @@
                 if (input.value == '') {
                     alert('Nada foi digitado')
                 }
-                console.log(stringSeparada)
-                console.log(operador)
 
                 if (operador == '+') {
                     soma()
@@ -397,14 +337,11 @@
             }
 
             function soma() {
-                let i, j, k, numeroProvisorio, restoProvisorio, aux
+                let i, numeroProvisorio, restoProvisorio, aux
                 let somatorio = 0
                 let vetorParaExpor = []
                 let vetor = []
                 let cont = 0
-                let vetorSoma = []
-                let vetorSomatorio = []
-                k = 0
                 let count = 1
 
                 for (i = 0; i < stringSeparada.length; i++) {
@@ -429,7 +366,6 @@
                                 parseInt(restoProvisorio) / Math.pow(10, j)
                             aux = restoProvisorio * Math.pow(10, j) // aux vai receber o resto inteiro, pois, por exemplo, se o num for 52, 52/10 = 5.2, precisamos do 52 para a proxima iteração, logo basta fazer aux = 5.2*10
                             aux = aux % Math.pow(10, j) //aux vai receber o resto, no exemplo acima, 52%10 = 2
-                            console.log('esse' + restoProvisorio)
                         }
 
                         if (j == quantidadeCaracter - 1) {
@@ -438,80 +374,48 @@
                         } else {
                             vetor[cont] = Math.floor(restoProvisorio)
                             vetor[cont] = vetor[cont] * Math.pow(10, j)
-                            console.log(restoProvisorio)
                             restoProvisorio = aux // resto recebe o auxiliar para que a conta prossiga
                         }
 
                         cont++
-
-                        //TEM QUE TENTAR REDUZIR O PRIMEIRO VALOR DO PROXIMO
                     }
                 }
 
                 for (i = 0; i < vetor.length; i++) {
-                    if (i == 0) {
-                        show_process.innerHTML += `<br/><br/>Transformando os numeros para facilitar:<br/>${vetor[i]}`
+                    //tira os zeros e transforma array de string em array de numeros
+                    if (vetor[i] == '0') {
                     } else {
-                        show_process.innerHTML += ` + ${vetor[i]}`
-                    }
-                    vetor[i] = String(vetor[i])
-                }
-                let maior = vetor[0].length
-                for (i = 1; i < vetor.length; i++) {
-                    if (vetor[i].length > maior) {
-                        maior = vetor[i].length
+                        vetorParaExpor.push(parseInt(vetor[i]))
                     }
                 }
-                console.log(maior)
-                for (i = 0; i < maior; i++) {
-                    k = vetor.length
-                    // vetorParaExpor[i] = "0";
-                    while (k > 0) {
-                        // console.log(j);
-                        // console.log(vetor[k - 1]);
-                        // console.log(vetor[i]);
 
-                        console.log('valor de i ' + i)
-                        console.log('valor de k ' + k)
-
-                        // if (i == k - 1) {
-                        //   vetorParaExpor[i] = `${vetor[k - 1]} `;
-                        // }
-
-                        if (i != k) {
-                            if (count == 1) {
-                                if (vetor[i].length == vetor[k - 1].length) {
-                                    vetorParaExpor[i] = `${vetor[k - 1]} `
-                                    count++
-                                }
-                            } else {
-                                if (vetor[i].length == vetor[k - 1].length) {
-                                    vetorParaExpor[i] += `+ ${vetor[k - 1]} `
-                                    console.log('vetor i ' + vetor[i])
-                                    console.log(
-                                        'vetor para expor ' + vetorParaExpor[i]
-                                    )
-                                    count++
-                                }
-                            }
-                        }
-                        if (k == 1) {
-                            count = 1
-                        }
-                        k--
-                    }
-
+                for (i = 0; i < vetorParaExpor.length; i++) {
+                    //vai imprimir na tela os numeros
                     if (i == 0) {
-                        show_process.innerHTML += `<br/><br/>Colocando os números com mesmos indices juntos:<br/>${vetorParaExpor[i]}`
+                        show_process.innerHTML += `<br/><br/>Transformando os numeros para facilitar:<br/>${vetorParaExpor[i]}`
                     } else {
-                        show_process.innerHTML += `+ ${vetorParaExpor[i]} `
+                        show_process.innerHTML += ` + ${vetorParaExpor[i]}`
                     }
-                    vetor[i] = String(vetor[i])
+                }
+
+                //FAZER FUNÇAO PARA ORDENAR AQUI
+                vetorParaExpor.sort((a, b) => b - a)
+
+                for (i = 0; i < vetorParaExpor.length; i++) {
+                    if (i == 0) {
+                        show_process.innerHTML += `<br/><br/>Juntando os numeros com mesmo índice, temos:<br/>${vetorParaExpor[i]}`
+                    } else {
+                        show_process.innerHTML += ` + ${vetorParaExpor[i]}`
+                    }
                 }
 
                 show_process.innerHTML += `<br/><br/>Logo, teremos o seguinte resultado: ${eval(
                     input.value
                 )}`
+
+                input.value = eval(input.value)
+
+                ///////    PODE OU NAO PODE USAR EVAL?????
             }
         </script>
     </body>
