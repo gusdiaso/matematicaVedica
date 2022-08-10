@@ -34,17 +34,15 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                height: 100%;
+                height: max-content;
             }
 
             .header {
                 background-color: #535a5a;
-                width: 100vw;
                 height: 80px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                position: absolute;
             }
 
             .calculadora {
@@ -54,6 +52,7 @@
                 align-items: center;
                 background-color: rgb(16, 17, 24);
                 padding: 30px;
+                margin-top: 50px;
                 border-radius: 20px;
             }
 
@@ -113,7 +112,7 @@
                 flex-direction: column;
                 width: 100%;
                 position: absolute;
-                bottom: 0;
+                bottom: auto;
                 color: white;
             }
 
@@ -134,9 +133,10 @@
                 background-color: rgb(83, 90, 90);
                 color: white;
                 padding: 10px;
-                margin-top: 20px;
+                margin-top: 40px;
                 border-radius: 10px;
                 text-align: center;
+                margin-bottom: 58px;
             }
         </style>
     </head>
@@ -502,34 +502,16 @@
                     }
 
                     if (i == 0) {
-                        show_process.innerHTML += `<br/><br/> Colocando os números com mesmos indices juntos:<br/>${vetorParaExpor[i]}`
+                        show_process.innerHTML += `<br/><br/>Colocando os números com mesmos indices juntos:<br/>${vetorParaExpor[i]}`
                     } else {
                         show_process.innerHTML += `+ ${vetorParaExpor[i]} `
                     }
                     vetor[i] = String(vetor[i])
                 }
-                console.log(vetorParaExpor)
-                j = 0
-                k = 0
-                for (i = 0; i < vetor.length; i++) {
-                    if (i % vetor[i].length == 0) {
-                        k++
-                    }
-                    vetorSomatorio[i] =
-                        parseInt(vetor[i]) + parseInt(vetorSoma[k - 1][i])
-                    somatorio = somatorio + parseInt(vetor[i])
-                    if (i == 0) {
-                        show_process.innerHTML += `<br/> Teremos a seguinte soma: ${vetorSomatorio[i]}`
-                    } else {
-                        show_process.innerHTML += ` + ${vetorSomatorio[i]}`
-                    }
-                }
 
-                show_process.innerHTML += `Logo, teremos o seguinte resultado: ${somatorio}`
-
-                console.log(somatorio)
-                console.log(vetorParaExpor)
-                console.log(vetor)
+                show_process.innerHTML += `<br/><br/>Logo, teremos o seguinte resultado: ${eval(
+                    input.value
+                )}`
             }
         </script>
     </body>
