@@ -99,10 +99,56 @@
         border-radius: 10px;
         text-align: center;
       }
+
+      .btn {
+        padding-inline: 10px;
+        height: 50px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        border: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        background-color: #48b6ff;
+        color: white;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      }
+
+      .telas {
+        display: flex;
+        width: 500px;
+        align-items: center;
+        justify-content: center;
+        word-wrap: break-word;
+        margin-bottom: 20px;
+      }
+
+      .butt {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+      }
     </style>
   </head>
   <body>
     <main>
+      <div class="butt">
+        <button class="ajuda btn" id="ajuda">Como Usar</button>
+        <button class="exemplos btn" id="exemplos">Exemplos</button>
+      </div>
+      <div class="telas" id="telaAjuda">
+        Para realizar as operações basta inserir os números na
+      </div>
+      <div class="telas" id="telaExemplo">
+        <button class="btn" value="543+267" onclick="insereInput(value)">
+          543 + 267
+        </button>
+        <button class="btn" onclick="StartCode">678 - 399</button>
+        <button class="btn" onclick="StartCode">6789 + 4789</button>
+        <button class="btn" onclick="StartCode">923 -774</button>
+      </div>
       <div class="calculadora">
         <input type="text" id="input" disabled />
         <div class="buttons">
@@ -169,18 +215,44 @@
       const input = document.getElementById("input"),
         button_calcular = document.querySelector(".button_calcular");
       let show_process = document.querySelector(".show-process");
+      const buttonHelp = document.querySelector("#ajuda");
+      const buttonExemplo = document.querySelector("#exemplos");
+      const telaAjuda = document.querySelector("#telaAjuda");
+      const telaExemplo = document.querySelector("#telaExemplo");
 
-      //_______________ CODIGO _______________//
+      //_______________ CODIGO _______________/
+
+      buttonHelp.addEventListener("click", () => {
+        if (telaAjuda.style.opacity == 0) {
+          telaAjuda.style.opacity = 1;
+        } else {
+          telaAjuda.style.opacity = 0;
+          console.log(telaAjuda.style.display);
+        }
+      });
+
+      buttonExemplo.addEventListener("click", () => {
+        if (telaExemplo.style.opacity == 0) {
+          telaExemplo.style.opacity = 1;
+        } else {
+          telaExemplo.style.opacity = 0;
+          console.log(telaAjuda.style.display);
+        }
+      });
 
       button_calcular.addEventListener("click", () => {
+        console.log(input.value);
         stringSeparada = separaString(input.value);
+        console.log(input.value);
+
+        // if(input.value !=)
 
         //quando um operador for digitado por ultimo, ele remove string vazia e o ultimo operador
         if (stringSeparada[stringSeparada.length - 1] == "") {
           stringSeparada.pop();
           input.value = stringSeparada.join(operador);
+          input;
         }
-
         if (input.value == "") {
           alert("Nada foi digitado");
         }
@@ -195,7 +267,10 @@
       });
 
       function separaString(stringParaSeparar) {
+        console.log("teste");
+        console.log(stringParaSeparar);
         let separadorSelecionado = pegaOperador(stringParaSeparar);
+        console.log(separadorSelecionado);
         //pega cada numero separado pelo operador
         return stringParaSeparar.split(separadorSelecionado);
       }
@@ -443,7 +518,7 @@
           }
 
           for (i = 0; i < maior; i++) {
-            if (vetorParaExpor[i] < 0) {
+            if (vetorParaExpor[i] <= 0 && i != 0) {
               vetorParaExpor[i] = vetorParaExpor[i] + 10;
               vetorParaExpor[i] = -vetorParaExpor[i];
             }
@@ -452,7 +527,7 @@
           }
 
           for (i = 0; i < maior; i++) {
-            if (vetorParaExpor[i + 1] < 0) {
+            if (vetorParaExpor[i + 1] <= 0) {
               vetorParaExpor[i] = vetorParaExpor[i] - 1;
               vetorParaExpor[i + 1] = -vetorParaExpor[i + 1];
             } else if (vetor) console.log(vetorParaExpor);
