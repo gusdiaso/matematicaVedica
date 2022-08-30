@@ -107,7 +107,7 @@
                 height: 50px;
                 border-radius: 5px;
                 margin-bottom: 20px;
-                margin-left: 20px;
+                margin-inline: 10px;
                 border: none;
                 cursor: pointer;
                 box-sizing: border-box;
@@ -135,7 +135,6 @@
             }
 
             .butt {
-                margin-top: 20px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -143,11 +142,14 @@
             }
 
             #telaAjuda {
-                opacity: 0;
+                display: none;
+                text-align: center;
             }
 
             #telaExemplo {
-                opacity: 0;
+                align-items: center;
+                justify-content: center;
+                display: none;
             }
         </style>
     </head>
@@ -310,18 +312,18 @@
             //_______________ CODIGO _______________/
 
             buttonHelp.addEventListener('click', () => {
-                if (telaAjuda.style.opacity == 0) {
-                    telaAjuda.style.opacity = 1
+                if (telaAjuda.style.display == 'block') {
+                    telaAjuda.style.display = 'none'
                 } else {
-                    telaAjuda.style.opacity = 0
+                    telaAjuda.style.display = 'block'
                 }
             })
 
             buttonExemplo.addEventListener('click', () => {
-                if (telaExemplo.style.opacity == 0) {
-                    telaExemplo.style.opacity = 1
+                if (telaExemplo.style.display == 'flex') {
+                    telaExemplo.style.display = 'none'
                 } else {
-                    telaExemplo.style.opacity = 0
+                    telaExemplo.style.display = 'flex'
                 }
             })
 
