@@ -142,8 +142,33 @@
             }
 
             #telaAjuda {
-                display: none;
-                text-align: center;
+                position: absolute;
+                background-color: rgba(255, 255, 255, 0.616);
+                display: flex;
+                width: max-content;
+                flex-direction: column;
+                padding: 10px 20px 30px;
+                border-radius: 10px;
+                backdrop-filter: blur(5px);
+                box-shadow: rgba(0, 0, 0, 0.55) 4px 4px 15px;
+            }
+
+            .fechaAjuda {
+                width: 20px;
+                height: 20px;
+                background-color: #fb4141;
+                color: rgb(255, 255, 255);
+
+                font-weight: bold;
+                border: none;
+                border-radius: 5px;
+                align-self: flex-end;
+                margin-bottom: 20px;
+                cursor: pointer;
+            }
+
+            .fechaAjuda:hover {
+                background-color: #db2323;
             }
 
             #telaExemplo {
@@ -156,12 +181,31 @@
     <body>
         <main>
             <div class="butt">
-                <button class="ajuda btn" id="ajuda">Como Usar</button>
+                <button class="ajuda btn" id="ajuda">Como Usar?</button>
                 <button class="exemplos btn" id="exemplos">Exemplos</button>
             </div>
             <div class="telas" id="telaAjuda">
-                Para realizar as operações basta inserir os números com os
-                operadores na calculadora
+                <div class="agrupaAjuda">
+                    <button class="fechaAjuda">x</button>
+                    <h4>
+                        Para realizar as operações basta inserir os números com
+                        os operadores na calculadora!
+                    </h4>
+                    <br />
+                    <p>
+                        => No método da soma pode-se utilizar até 5 operadores,
+                        ou seja, 6 numeros no maximo!
+                    </p>
+                    <br />
+                    <p>
+                        => No método da subtração pode-se utilizar apenas 1
+                        operador, ou seja, 2 numeros!
+                    </p>
+                    <br />
+                    <p>=> No método da multiplicação pode-se utilizar ...</p>
+                    <br />
+                    <p>=> No método da divisão pode-se utilizar ...</p>
+                </div>
             </div>
             <div class="telas" id="telaExemplo">
                 <button class="btn" value="543+267" onclick="exemplo(value)">
@@ -308,8 +352,13 @@
             const buttonExemplo = document.querySelector('#exemplos')
             const telaAjuda = document.querySelector('#telaAjuda')
             const telaExemplo = document.querySelector('#telaExemplo')
+            const fechaAjuda = document.querySelector('.fechaAjuda')
 
             //_______________ CODIGO _______________/
+
+            fechaAjuda.addEventListener('click', () => {
+                telaAjuda.style.display = 'none'
+            })
 
             buttonHelp.addEventListener('click', () => {
                 if (telaAjuda.style.display == 'block') {
