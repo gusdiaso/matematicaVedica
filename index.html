@@ -142,7 +142,8 @@
             }
 
             #telaAjuda,
-            #telaExemplo {
+            #telaExemplo,
+            .atencao {
                 position: absolute;
                 background-color: rgba(255, 255, 255, 0.616);
                 display: none;
@@ -160,6 +161,12 @@
 
             #telaExemplo {
                 top: 120px;
+            }
+
+            .atencao {
+                align-items: center;
+                padding-bottom: 20px;
+                top: 150px;
             }
 
             .fechaAjuda,
@@ -180,6 +187,16 @@
             .fechaExemplo:hover {
                 background-color: #db2323;
             }
+
+            .fechaAtencao {
+                background-color: #fb4141;
+                color: rgb(255, 255, 255);
+                font-weight: bold;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                cursor: pointer;
+            }
         </style>
     </head>
     <body>
@@ -188,6 +205,7 @@
                 <button class="ajuda btn" id="ajuda">Como Usar?</button>
                 <button class="exemplos btn" id="exemplos">Exemplos</button>
             </div>
+
             <div class="telas" id="telaAjuda">
                 <button class="fechaAjuda">x</button>
                 <h4>
@@ -245,6 +263,15 @@
                     </button>
                 </div>
             </div>
+
+            <div class="atencao">
+                <h3>Atenção!</h3>
+                <br />
+                <div class="textAtencao"></div>
+                <br />
+                <button class="fechaAtencao">OK!</button>
+            </div>
+
             <div class="calculadora">
                 <input type="text" id="input" disabled />
                 <div class="buttons">
@@ -378,8 +405,15 @@
             const telaExemplo = document.querySelector('#telaExemplo')
             const fechaAjuda = document.querySelector('.fechaAjuda')
             const fechaExemplo = document.querySelector('.fechaExemplo')
+            const atencao = document.querySelector('.atencao')
+            const textAtencao = document.querySelector('.textAtencao')
+            const fechaAtencao = document.querySelector('.fechaAtencao')
 
             //_______________ CODIGO _______________/
+
+            fechaAtencao.addEventListener('click', () => {
+                atencao.style.display = 'none'
+            })
 
             fechaAjuda.addEventListener('click', () => {
                 telaAjuda.style.display = 'none'
@@ -416,7 +450,7 @@
                     input.value = stringSeparada.join(operador)
                 }
                 if (input.value == '') {
-                    alert('Nada foi digitado')
+                    renderizarAtencao('Nada foi digitado')
                 }
 
                 if (operador == '+') {
@@ -442,6 +476,8 @@
                 if (operador == '-') {
                     subtracao()
                 }
+
+                telaExemplo.style.display = 'none'
             }
 
             function separaString(stringParaSeparar) {
@@ -499,7 +535,7 @@
                     input.value.length == 0 &&
                     inicialProibido.includes(valor)
                 ) {
-                    alert(
+                    renderizarAtencao(
                         'Operação não pode começar com um zero ou com operadores!'
                     )
                 }
@@ -509,7 +545,9 @@
                     operador != undefined &&
                     inicialProibido.includes(valor)
                 ) {
-                    alert('Não insira um zero ou operador após outro operador!')
+                    renderizarAtencao(
+                        'Não insira um zero ou operador após outro operador!'
+                    )
                 }
                 //proibir entrada de outro operador sem ser o operador unico
                 else if (
@@ -517,7 +555,9 @@
                     operador != undefined &&
                     !numeros.includes(valor)
                 ) {
-                    alert('Utilize apenas o primeiro operador escolhido!')
+                    renderizarAtencao(
+                        'Utilize apenas o primeiro operador escolhido!'
+                    )
                 }
                 //outros casos sao permitidos
                 else {
@@ -742,6 +782,11 @@
                         console.log(vetorParaExpor)
                     }
                 }
+            }
+
+            function renderizarAtencao(texto) {
+                textAtencao.innerHTML = texto
+                atencao.style.display = 'flex'
             }
         </script>
     </body>
