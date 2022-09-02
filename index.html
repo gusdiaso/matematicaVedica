@@ -54,11 +54,10 @@
                 padding: 0 10px;
                 font-size: 14px;
                 margin-bottom: 20px;
-                word-wrap: break-word;
                 background-color: rgb(147, 175, 121);
                 text-align: right;
-                writing-mode: horizontal-tb !important;
                 font-family: 'Press Start 2P', cursive;
+                /* direction: rtl; */
             }
 
             .buttons {
@@ -468,6 +467,8 @@
                 input.value = value
                 arrayCaracter = value.split('')
                 console.log(arrayCaracter)
+                contador = arrayCaracter.length
+                telaExemplo.style.display = 'none'
 
                 if (operador == '+') {
                     soma()
@@ -476,8 +477,6 @@
                 if (operador == '-') {
                     subtracao()
                 }
-
-                telaExemplo.style.display = 'none'
             }
 
             function separaString(stringParaSeparar) {
@@ -658,7 +657,6 @@
                     //PERCORRE O ARRAY DE NUMEROS DE INPUT
 
                     quantidadeCaracter = stringSeparada[i].length //QUANTIDADE DE NUMEROS O NUMERO TEM
-                    console.log(quantidadeCaracter)
                     if (i == 0) {
                         show_process.innerHTML = `Subtraindo: ${stringSeparada[i]}`
                     } else {
