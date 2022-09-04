@@ -99,6 +99,11 @@
         text-align: center;
       }
 
+      .show-process th, td{
+        border: 1px solid;
+        padding: 4px;
+      }
+
       .btn {
         padding-inline: 10px;
         height: 50px;
@@ -679,24 +684,35 @@
 
             console.log(vetorParaExpor);
           }
+
+
+
           let aux_show;
-          show_process.innerHTML = `
-                       <br>
-                      <table>
-                        `;
           for (i = 0; i < maior; i++) {
-            aux_show = `
-                            <tr>
+            if(i == 0){
+              aux_show = `   <tr>
                             <th> elemento ${i} </th>
                             <td>${vetor[i]}</td>
                             <td>${vetor2[i]}</td>
-                            </tr> `;
+                            </tr> 
+                          `;
+            }else{
+              aux_show += `   <tr>
+                              <th> elemento ${i} </th>
+                              <td>${vetor[i]}</td>
+                              <td>${vetor2[i]}</td>
+                              </tr> 
+                            `;
+            }
           }
-          show_process.innerHTML =
-            show_process +=
-            aux_show +=
-              ` </table>
-                      `;
+    
+          show_process.innerHTML = `
+                                    <br>
+                                    <table>
+                                    ${aux_show}
+                                    </table>
+                                  `;
+
           console.log("vetor[i] = " + vetor[i]);
 
           for (i = 0; i < maior; i++) {
