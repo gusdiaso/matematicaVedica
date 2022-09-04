@@ -99,7 +99,8 @@
         text-align: center;
       }
 
-      .show-process th, td{
+      .show-process th,
+      td {
         border: 1px solid;
         padding: 4px;
       }
@@ -633,99 +634,145 @@
           }
           cont = 0;
         }
+        let vetAux = vetor.join("");
+        let vetAux2 = vetor2.join("");
+        if (vetAux > vetAux2) {
+          console.log(vetor);
+          console.log(vetor2);
+          let tamanhoVetor1 = vetor.length;
+          let tamanhoVetor2 = vetor2.length;
+          console.log(tamanhoVetor1);
+          console.log(tamanhoVetor2);
 
-        console.log(vetor);
-        console.log(vetor2);
-        let tamanhoVetor1 = vetor.length;
-        let tamanhoVetor2 = vetor2.length;
-        console.log(tamanhoVetor1);
-        console.log(tamanhoVetor2);
+          let maior =
+            tamanhoVetor1 > tamanhoVetor2 ? tamanhoVetor1 : tamanhoVetor2;
+          let menor =
+            tamanhoVetor1 > tamanhoVetor2 ? tamanhoVetor2 : tamanhoVetor1;
 
-        let maior =
-          tamanhoVetor1 > tamanhoVetor2 ? tamanhoVetor1 : tamanhoVetor2;
-        let menor =
-          tamanhoVetor1 > tamanhoVetor2 ? tamanhoVetor2 : tamanhoVetor1;
+          console.log("menor = " + menor);
+          console.log("maior = " + maior);
 
-        console.log("menor = " + menor);
-        console.log("maior = " + maior);
+          vetor = vetor.join("");
+          vetor2 = vetor2.join("");
+          if (maior > 1) {
+            for (i = 0; i < maior - menor; i++) {
+              if (vetor.length < maior) {
+                vetor = String(vetor);
+                vetor = "0" + vetor;
+                if (i == maior - menor - 1) {
+                  vetor = vetor.split("");
+                  console.log(vetor);
+                }
+              } else if (vetor2.length < maior) {
+                vetor2 = String(vetor2);
 
-        vetor = vetor.join("");
-        vetor2 = vetor2.join("");
-        if (maior > 1) {
-          for (i = 0; i < maior - menor; i++) {
-            if (vetor.length < maior) {
-              vetor = String(vetor);
-              vetor = "0" + vetor;
-              if (i == maior - menor - 1) {
-                vetor = vetor.split("");
-                console.log(vetor);
-              }
-            } else if (vetor2.length < maior) {
-              vetor2 = String(vetor2);
-
-              vetor2 = "0" + vetor2;
-              if (i == maior - menor - 1) {
-                vetor2 = vetor2.split("");
-                console.log(vetor2);
+                vetor2 = "0" + vetor2;
+                if (i == maior - menor - 1) {
+                  vetor2 = vetor2.split("");
+                  console.log(vetor2);
+                }
               }
             }
-          }
 
-          for (i = 0; i < maior; i++) {
-            vetorParaExpor[i] = parseInt(vetor[i]) - parseInt(vetor2[i]);
-            console.log(vetorParaExpor);
-          }
-
-          for (i = 0; i < maior; i++) {
-            if (vetorParaExpor[i] <= 0 && i != 0) {
-              vetorParaExpor[i] = vetorParaExpor[i] + 10;
-              vetorParaExpor[i] = -vetorParaExpor[i];
-            }
-
-            console.log(vetorParaExpor);
-          }
-
-
-
-          let aux_show;
-          for (i = 0; i < maior; i++) {
-            if(i == 0){
-              aux_show = `   <tr>
-                            <th> elemento ${i} </th>
-                            <td>${vetor[i]}</td>
-                            <td>${vetor2[i]}</td>
-                            </tr> 
+            let aux_show = `<tr>
+                            
                           `;
-            }else{
-              aux_show += `   <tr>
-                              <th> elemento ${i} </th>
-                              <td>${vetor[i]}</td>
-                              <td>${vetor2[i]}</td>
-                              </tr> 
+            let aux_show2 = `<tr>
+          `;
+            for (i = 0; i < maior; i++) {
+              aux_show += `  
+                            <td>${vetor[i]}</td>
+                          `;
+
+              aux_show2 += `  
+                            <td>${vetor2[i]}</td>
                             `;
             }
-          }
-    
-          show_process.innerHTML = `
+
+            show_process.innerHTML += `
                                     <br>
                                     <table>
                                     ${aux_show}
+                                    </tr>
+                                    ${aux_show2}
+                                    </tr>
                                     </table>
                                   `;
 
-          console.log("vetor[i] = " + vetor[i]);
+            show_process.innerHTML += `<br> Agora basta fazermos a subtração termo a termo, se o número for negativo, ele deve continuar negativo <br>`;
 
-          for (i = 0; i < maior; i++) {
-            if (vetorParaExpor[i + 1] <= 0) {
-              vetorParaExpor[i] = vetorParaExpor[i] - 1;
-              vetorParaExpor[i + 1] = -vetorParaExpor[i + 1];
-            } else if (vetor) console.log(vetorParaExpor);
+            for (i = 0; i < maior; i++) {
+              vetorParaExpor[i] = parseInt(vetor[i]) - parseInt(vetor2[i]);
+              console.log(vetorParaExpor);
+            }
+
+            let aux_show3 = `<tr>`;
+            for (i = 0; i < maior; i++) {
+              aux_show3 += `<td>${vetorParaExpor[i]}</td>`;
+            }
+
+            show_process.innerHTML += `
+                                    <br>
+                                    <table>
+                                    ${aux_show}
+                                    </tr>
+                                    ${aux_show2}
+                                    </tr>
+                                    ${aux_show3}
+                                    </tr>
+                                    </table>
+                                  `;
+
+            show_process.innerHTML += `<br> Agora com o resultado faremos o complemento a 10 de todos os que estiverem negativos
+          <br>`;
+
+            for (i = 0; i < maior; i++) {
+              if (vetorParaExpor[i] <= 0 && i != 0) {
+                vetorParaExpor[i] = vetorParaExpor[i] + 10;
+                vetorParaExpor[i] = -vetorParaExpor[i];
+              }
+
+              console.log(vetorParaExpor);
+            }
+
+            aux_show3 = `<tr>`;
+            for (i = 0; i < maior; i++) {
+              if (vetorParaExpor[i] >= 0) {
+                aux_show3 += `<td>${vetorParaExpor[i]}</td>`;
+              } else {
+                aux_show3 += `<td>&#9755 ${-vetorParaExpor[i]}</td>`;
+              }
+            }
+
+            show_process.innerHTML += `
+                                    <br>
+                                    <table>
+                                    ${aux_show}
+                                    </tr>
+                                    ${aux_show2}
+                                    </tr>
+                                    ${aux_show3}
+                                    </tr>
+                                    </table>
+                                  `;
+            show_process.innerHTML += `<br> Vamos agora subtrair um ao antecessor de cada termo que tem a mão apontando, o que nos dará o resultado:`;
+
+            for (i = 0; i < maior; i++) {
+              if (vetorParaExpor[i + 1] <= 0) {
+                vetorParaExpor[i] = vetorParaExpor[i] - 1;
+                vetorParaExpor[i + 1] = -vetorParaExpor[i + 1];
+              } else if (vetor) console.log(vetorParaExpor);
+            }
+          } else {
+            for (i = 0; i < maior; i++) {
+              vetorParaExpor[i] = parseInt(vetor[i]) - parseInt(vetor2[i]);
+              console.log(vetorParaExpor);
+            }
           }
+          vetorParaExpor = vetorParaExpor.join("");
+          show_process.innerHTML += ` ${vetorParaExpor}`;
         } else {
-          for (i = 0; i < maior; i++) {
-            vetorParaExpor[i] = parseInt(vetor[i]) - parseInt(vetor2[i]);
-            console.log(vetorParaExpor);
-          }
+          renderizarAtencao("O primeiro número deve ser maior que o segundo!");
         }
       }
 
