@@ -539,26 +539,26 @@
         //FAZER FUNÇAO PARA ORDENAR AQUI
         vetorParaExpor.sort((a, b) => b - a);
 
-        //tentando juntar complemento a 10
-        for (i = 0; i < vetorParaExpor.length; i++) {
-          for (j = 0; j < vetorParaExpor.length; j++) {
-            if (
-              vetorParaExpor[i].length == vetorParaExpor[j].length && //provavelmente essa consicao ta dando pal tbm ent
-              j > i
-            ) {
-              if (
-                vetorParaExpor[i] + vetorParaExpor ==
-                Math.pow(10, vetorParaExpor[i].length) //nao consegue pegar .length pq??
-              ) {
-                vetorComplementar.push(vetorParaExpor[i]);
-                vetorComplementar.push(vetorParaExpor[j]);
-                vetorParaExpor.pop(vetorParaExpor[i]);
-                vetorParaExpor.pop(vetorParaExpor[j]);
-              }
-            }
-            console.log(vetorParaExpor[i].length); //pesquisar dps pq ta dando undefined ou nan
-          }
-        }
+        // //tentando juntar complemento a 10
+        // for (i = 0; i < vetorParaExpor.length; i++) {
+        //   for (j = 0; j < vetorParaExpor.length; j++) {
+        //     if (
+        //       vetorParaExpor[i].length == vetorParaExpor[j].length && //provavelmente essa consicao ta dando pal tbm ent
+        //       j > i
+        //     ) {
+        //       if (
+        //         vetorParaExpor[i] + vetorParaExpor ==
+        //         Math.pow(10, vetorParaExpor[i].length) //nao consegue pegar .length pq??
+        //       ) {
+        //         vetorComplementar.push(vetorParaExpor[i]);
+        //         vetorComplementar.push(vetorParaExpor[j]);
+        //         vetorParaExpor.pop(vetorParaExpor[i]);
+        //         vetorParaExpor.pop(vetorParaExpor[j]);
+        //       }
+        //     }
+        //     console.log(vetorParaExpor[i].length); //pesquisar dps pq ta dando undefined ou nan
+        //   }
+        // }
 
         console.log("vetor complemento: ", vetorComplementar);
         console.log("vetor para expor: ", vetorParaExpor);
@@ -636,13 +636,15 @@
         }
         let vetAux = vetor.join("");
         let vetAux2 = vetor2.join("");
-        if (vetAux > vetAux2) {
+        
           console.log(vetor);
           console.log(vetor2);
           let tamanhoVetor1 = vetor.length;
           let tamanhoVetor2 = vetor2.length;
           console.log(tamanhoVetor1);
           console.log(tamanhoVetor2);
+
+        if (tamanhoVetor1 >= tamanhoVetor2) {
 
           let maior =
             tamanhoVetor1 > tamanhoVetor2 ? tamanhoVetor1 : tamanhoVetor2;
