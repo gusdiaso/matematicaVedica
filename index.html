@@ -75,11 +75,13 @@
         font-size: 1rem;
       }
 
-      .del {
+      .del,
+      .clear {
         background-color: rgb(223, 65, 65);
       }
 
-      .del:hover {
+      .del:hover,
+      .clear:hover {
         background-color: rgb(151, 36, 36);
       }
 
@@ -309,6 +311,7 @@
             9
           </button>
           <button class="button del" onclick="deletar()">DEL</button>
+          <button class="button del" onclick="clearall()">C</button>
           <button class="button button_calcular" type="submit">=</button>
         </div>
       </div>
@@ -326,8 +329,8 @@
       let arrayCaracter = [];
       let contador = 0;
 
-      const input = document.getElementById("input"),
-        button_calcular = document.querySelector(".button_calcular");
+      const input = document.getElementById("input");
+      const button_calcular = document.querySelector(".button_calcular");
       let show_process = document.querySelector(".show-process");
       const buttonHelp = document.querySelector("#ajuda");
       const buttonExemplo = document.querySelector("#exemplos");
@@ -388,6 +391,14 @@
         if (operador == "-") {
           subtracao();
         }
+
+        if (operador == "/") {
+          divisao();
+        }
+
+        if (operador == "*") {
+          multiplicacao();
+        }
       });
 
       //Funçoes
@@ -408,12 +419,29 @@
         if (operador == "-") {
           subtracao();
         }
+
+        if (operador == "/") {
+          divisao();
+        }
+
+        if (operador == "*") {
+          multiplicacao();
+        }
       }
 
       function separaString(stringParaSeparar) {
         let separadorSelecionado = pegaOperador(stringParaSeparar);
         //pega cada numero separado pelo operador
         return stringParaSeparar.split(separadorSelecionado);
+      }
+
+      function vetorNumberToString(vetor){
+        let i;
+        for(i=0; i<vetor.length; i++){
+          vetor[i] = String(vetor[i]);
+        }
+
+        return vetor;
       }
 
       function pegaOperador(string) {
@@ -429,6 +457,19 @@
         }
         return separadorSelecionado;
       }
+      
+      function removeElementoArray(array, elemento){
+        let i, arrayResposta = [];
+
+        for(i=0; i<array.length; i++){
+          if(array[i] == elemento){
+            elemento = 0;
+          }else{
+            arrayResposta.push(array[i]);
+          } 
+        }
+        return arrayResposta
+      }
 
       function deletar() {
         if (input.value != "") {
@@ -436,6 +477,14 @@
           input.value = arrayCaracter.join("");
           arrayCaracter = input.value.split("");
           contador -= 1;
+        }
+      }
+
+      function clearall() {
+        if (input.value != "") {
+          input.value = "";
+          arrayCaracter = [];
+          contador = 0;
         }
       }
 
@@ -482,6 +531,10 @@
         else if (valor == "-" && contaOperador("-") >= 1) {
           renderizarAtencao("Numero maximo de operador atingido!");
         }
+        // limita o qnt numero para subtraçao
+        else if (valor == "/" && contaOperador("/") >= 1) {
+          renderizarAtencao("Numero maximo de operador atingido!");
+        }
         //outros casos sao permitidos
         else {
           input.value += valor;
@@ -507,7 +560,21 @@
         return quantidadeOperador;
       }
 
-      function juntaComplementoDez(matriz) {}
+      //pelo exemplo que tien deu usaremos apenas dois valores mesmo
+      function juntaComplementoDez(vetor){
+        let i, j;
+        vetor = vetorNumberToString(vetor);
+
+        for(i=0; i<vetor.length; i++){
+          for(j=i+1; j<vetor.length; j++){
+            if(vetor[i].length == vetor[j].length && Number(vetor[i]) + Number(vetor[j]) == Math.pow(10, vetor[i].length)){
+              vetor[i] = `(${vetor[i]}+${vetor[j]})`
+              vetor = removeElementoArray(vetor, vetor[j]);
+            }
+          }
+        }
+        return vetor;
+      }
 
       //Metodos da mat vedica
 
@@ -515,7 +582,6 @@
         let i, j, numeroProvisorio, restoProvisorio, aux;
         let somatorio = 0;
         let vetor = [];
-        let vetorComplementar = [];
         let cont = 0;
         let count = 1;
         let vetorParaExpor = [];
@@ -575,10 +641,7 @@
         vetorParaExpor.sort((a, b) => b - a);
 
         //FAZER COMPLEMENTO A 10
-        vetorComplementar = juntaComplementoDez(vetorParaExpor);
-
-        console.log("vetor complemento: ", vetorComplementar);
-        console.log("vetor para expor: ", vetorParaExpor);
+        vetorParaExpor = juntaComplementoDez(vetorParaExpor);
 
         for (i = 0; i < vetorParaExpor.length; i++) {
           if (i == 0) {
@@ -803,6 +866,53 @@
           renderizarAtencao("O primeiro número deve ser maior que o segundo!");
         }
       }
+
+      function multiplicacao() {
+
+      }
+    
+      // function divisao() {
+      //   let dividendo = stringSeparada[0];
+      //   let divisor = stringSeparada[1];
+      //   let i; //contador auxiliar
+      //   let resultadoParcial; //resultado do número pelo qual o divisor será multiplicado.
+      //   let resultado;
+      //   let resposta;
+      //   console.log("String Separada: " , stringSeparada);
+
+      //   // primeiro comparar se um número é maior que outro.    
+      //   //se o divisor for menor que o dividendo:
+      //   if (dividendo > divisor){
+      //       i = 1;
+      //       //encontrar um número que multiplicado pelo divisor seja o mais próximo possível do dividendo
+      //       do{
+      //           console.log("problema aqui");
+      //           resultadoParcial = (i+9)/2; // i+9/2 = 5
+      //           resultado = resultadoParcial * divisor;
+      //           i++;
+      //       }while(resultado < dividendo);
+
+      //   }else if (dividendo == divisor){ //se forem iguais:
+      //       resposta = 1;
+      //   }else{
+
+      //       //se o divisor for maior que o dividendo:
+      //       //adicionar zeros no final do dividendo e colocar zero, vírgula e mais uma quantidade
+      //       //necessária de zeros no quociente. (perdão, eu não sei fazer isso)
+      //       //depois fazer o processo do primeiro if:
+      //       do{
+      //           resultadoParcial = (i+9)/2;
+      //           resultado = resultadoParcial * divisor;
+      //       }while(resultado < dividendo);
+      //       resposta = resultadoParcial;
+      //       console.log(resposta);
+      //   }
+      //   //para encontrar o resto é necessária usar a implementação de sutração:
+      //   //resto = dividendo - resultado
+      //   console.log(resposta);
+      // }
+
+
     </script>
   </body>
 </html>
