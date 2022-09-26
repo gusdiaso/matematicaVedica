@@ -163,7 +163,6 @@
         top: 91px;
       }
 
-    
       #telaAjuda {
         top: 90px;
       }
@@ -252,8 +251,8 @@
             6789 + 4789
           </button>
           <button class="btn" value="923-774" onclick="exemplo(value)">
-            923 - 774
-          </button><br>
+            923 - 774</button
+          ><br />
           <button class="btn" value="25*64" onclick="exemplo(value)">
             25 * 64
           </button>
@@ -419,7 +418,7 @@
         operador = pegaOperador(value);
         stringSeparada = separaString(value);
         input.value = value;
-        arrayCaracter = value.split("");;
+        arrayCaracter = value.split("");
         contador = arrayCaracter.length;
         telaExemplo.style.display = "none";
 
@@ -446,18 +445,18 @@
         return stringParaSeparar.split(separadorSelecionado);
       }
 
-      function vetorNumberToString(vetor){
+      function vetorNumberToString(vetor) {
         let i;
-        for(i=0; i<vetor.length; i++){
+        for (i = 0; i < vetor.length; i++) {
           vetor[i] = String(vetor[i]);
         }
 
         return vetor;
       }
 
-      function vetorStringToNumber(vetor){
+      function vetorStringToNumber(vetor) {
         let i;
-        for(i=0; i<vetor.length; i++){
+        for (i = 0; i < vetor.length; i++) {
           vetor[i] = Number(vetor[i]);
         }
 
@@ -477,18 +476,19 @@
         }
         return separadorSelecionado;
       }
-      
-      function removeElementoArray(array, elemento){
-        let i, arrayResposta = [];
 
-        for(i=0; i<array.length; i++){
-          if(array[i] == elemento){
+      function removeElementoArray(array, elemento) {
+        let i,
+          arrayResposta = [];
+
+        for (i = 0; i < array.length; i++) {
+          if (array[i] == elemento) {
             elemento = null;
-          }else{
+          } else {
             arrayResposta.push(array[i]);
-          } 
+          }
         }
-        return arrayResposta
+        return arrayResposta;
       }
 
       function deletar() {
@@ -554,12 +554,15 @@
         // limita o qnt numero para subtraçao
         else if (valor == "/" && contaOperador("/") >= 1) {
           renderizarAtencao("Numero maximo de operador atingido!");
-        }
-        else if (valor == "*" && contaOperador("*") >= 1) {
+        } else if (valor == "*" && contaOperador("*") >= 1) {
           renderizarAtencao("Numero maximo de operador atingido!");
-        }
-        else if ((valor == "*" && (contador == 1)) || (valor == "*" && (contador == 3))) {
-          renderizarAtencao("O numero no metodo da multiplicação deve ter dois digitos!");
+        } else if (
+          (valor == "*" && contador == 1) ||
+          (valor == "*" && contador == 3)
+        ) {
+          renderizarAtencao(
+            "O numero no metodo da multiplicação deve ter dois digitos!"
+          );
         }
         //outros casos sao permitidos
         else {
@@ -586,14 +589,18 @@
         return quantidadeOperador;
       }
 
-      function juntaComplementoDez(vetor){
+      function juntaComplementoDez(vetor) {
         let i, j;
         vetor = vetorNumberToString(vetor);
 
-        for(i=0; i<vetor.length; i++){
-          for(j=i+1; j<vetor.length; j++){
-            if(vetor[i].length == vetor[j].length && Number(vetor[i]) + Number(vetor[j]) == Math.pow(10, vetor[i].length)){
-              vetor[i] = `(${vetor[i]}+${vetor[j]})`
+        for (i = 0; i < vetor.length; i++) {
+          for (j = i + 1; j < vetor.length; j++) {
+            if (
+              vetor[i].length == vetor[j].length &&
+              Number(vetor[i]) + Number(vetor[j]) ==
+                Math.pow(10, vetor[i].length)
+            ) {
+              vetor[i] = `(${vetor[i]}+${vetor[j]})`;
               vetor = removeElementoArray(vetor, vetor[j]);
             }
           }
@@ -704,7 +711,7 @@
             if (j == quantidadeCaracter - 1) {
               numeroProvisorio = parseInt(stringSeparada[i]) / Math.pow(10, j); // divide o numero pela potencia, pela primeira vez
               restoProvisorio = parseInt(stringSeparada[i]) % Math.pow(10, j); // pega o resto do numero
-              } else {
+            } else {
               // se o for estiver na segunda iteração ou superior
               restoProvisorio = parseInt(restoProvisorio) / Math.pow(10, j);
               // aux vai receber o resto inteiro, pois, por exemplo, se o num for 52, 52/10 = 5.2, precisamos do 52 para a proxima iteração, logo basta fazer aux = 5.2*10
@@ -832,7 +839,6 @@
                   vetorParaExpor[i] = vetorParaExpor[i];
                 }
               }
-
             }
 
             aux_show3 = `<tr>`;
@@ -876,78 +882,156 @@
       }
 
       function multiplicacao() {
-        
         let number1 = Number(stringSeparada[0]);
         let number2 = Number(stringSeparada[1]);
-        let i;
+        let i,
+          k = 0;
+        let j = 0;
         let vetorNumeroParticionado = [];
         let vetorParaExpor = [];
 
         vetorNumeroParticionado = removeElementoArray(arrayCaracter, operador);
         vetorNumeroParticionado = vetorStringToNumber(vetorNumeroParticionado);
+        console.log(vetorNumeroParticionado);
+        let vetor1 = [];
+        let vetor2 = [];
+        let vetorComplemento1 = [];
+        let vetorComplemento2 = [];
 
-        show_process.innerHTML = `Pegar valor de cada numero e separar, dessa forma:<br>`;
-
-        for(i = 0; i<vetorNumeroParticionado.length; i++){
-          if(i==vetorNumeroParticionado.length-1){
-            show_process.innerHTML += `${vetorNumeroParticionado[i]}`
-          }else{
-            show_process.innerHTML += `${vetorNumeroParticionado[i]} | `
+        for (i = 0; i < vetorNumeroParticionado.length; i++) {
+          if (i < String(number1).length) {
+            vetor1[k] = vetorNumeroParticionado[i];
+            k++;
+          } else {
+            vetor2[j] = vetorNumeroParticionado[i];
+            j++;
           }
         }
+        console.log(vetor1);
 
-        show_process.innerHTML += `<br><br>Agora vamos fazer 3 partes:<br>ESQ | MEIO | DIR`;
+        if (vetor2.every((el) => el === 9)) {
+          show_process.innerHTML = `Multiplicando: ${stringSeparada[0]} * ${stringSeparada[1]}`;
 
-        show_process.innerHTML += `<br><br>Para a parte da direita, multiplicar o indice 2 do ${stringSeparada[0]} com o indice 2 do ${stringSeparada[1]}`;
-
-        show_process.innerHTML += `<br>ESQ | MEIO | ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[3]} )`;
-
-        show_process.innerHTML += `<br><br>Para a parte do meio, somar a multiplicação:<br>(indice 1 do ${stringSeparada[0]} com o indice 2 do ${stringSeparada[1]}) + (indice 2 do ${stringSeparada[0]} com o indice 1 do ${stringSeparada[1]})`;
-
-        show_process.innerHTML += `<br>ESQ | ( ${vetorNumeroParticionado[0]} x ${vetorNumeroParticionado[3]} ) + ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[2]} ) | ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[3]} )`;
-
-
-        show_process.innerHTML += `<br><br>Para a parte da esquerda, multiplicar o indice 1 do ${stringSeparada[0]} com o indice 1 do ${stringSeparada[1]}`;
-
-        show_process.innerHTML += `<br>( ${vetorNumeroParticionado[0]} x ${vetorNumeroParticionado[2]} ) | ( ${vetorNumeroParticionado[0]} x ${vetorNumeroParticionado[3]} ) + ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[2]} ) | ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[3]} )`;
-
-        show_process.innerHTML += `<br><br>Fazendo as operações, temos:<br>`;
-        show_process.innerHTML += `${vetorNumeroParticionado[0]*vetorNumeroParticionado[2]} | ${(vetorNumeroParticionado[0]*vetorNumeroParticionado[3]) + (vetorNumeroParticionado[1]*vetorNumeroParticionado[2])} | ${vetorNumeroParticionado[1]*vetorNumeroParticionado[3]}`;
-
-        vetorParaExpor.push(vetorNumeroParticionado[0]*vetorNumeroParticionado[2]);
-
-        vetorParaExpor.push((vetorNumeroParticionado[0]*vetorNumeroParticionado[3])+(vetorNumeroParticionado[1]*vetorNumeroParticionado[2]));
-
-        vetorParaExpor.push(vetorNumeroParticionado[1]*vetorNumeroParticionado[3]);
-
-        let vetorAuxiliar = vetorParaExpor;
-
-        if(vetorAuxiliar[2] > 10 || vetorAuxiliar[1] > 10){
-
-          if(vetorAuxiliar[2] > 10){
-            show_process.innerHTML += `<br><br>Agora temos que tirar o ${Math.floor(vetorAuxiliar[2] / 10)} do ${vetorAuxiliar[2]} e adicionar ao ${vetorAuxiliar[1]}:<br>`
-            show_process.innerHTML += `${vetorParaExpor[0]} | ${vetorParaExpor[1]} + ${Math.floor(vetorAuxiliar[2] / 10)} | ${vetorAuxiliar[2] % 10}`
-            vetorParaExpor[1] += Math.floor(vetorAuxiliar[2] / 10);
-            vetorParaExpor[2] = vetorAuxiliar[2] % 10;
+          show_process.innerHTML += `<br> Como o segundo número é composto somente por 9, usaremos a seguinte técnica: <br>`;
+          show_process.innerHTML += `<br>${stringSeparada[0]} - 1 = `;
+          let newVector = [];
+          let newVector2 = [];
+          for (i = 0; i < vetor1.length; i++) {
+            if (i == 0) {
+              newVector[0] = String(vetor1[i]);
+            } else {
+              newVector[0] += String(vetor1[i]);
+            }
           }
 
-          if(vetorAuxiliar[1] > 10){
-            show_process.innerHTML += `<br><br>Agora temos que tirar o ${Math.floor(vetorAuxiliar[1] / 10)} do ${vetorAuxiliar[1]} e adicionar ao ${vetorAuxiliar[0]}:<br>`
-            show_process.innerHTML += `${vetorParaExpor[0]} + ${Math.floor(vetorAuxiliar[1] / 10)} | ${vetorParaExpor[1] % 10} | ${vetorParaExpor[2]}`
-            vetorParaExpor[0] += Math.floor(vetorAuxiliar[1] / 10);
-            vetorParaExpor[1] = vetorAuxiliar[1] % 10;
+          vetorComplemento1 = Number(newVector) - 1;
+          show_process.innerHTML += `${vetorComplemento1} <br><br> Agora pegamos o valor ${newVector} e fazer o complemento a 9 e o complemento a 10 do último número:`;
+          for (i = 0; i < vetor1.length; i++) {
+            if (i == vetor1.length - 1) {
+              vetorComplemento2[i] = vetor1[i] - 10;
+              vetorComplemento2[i] = -vetorComplemento2[i];
+            } else {
+              vetorComplemento2[i] = vetor1[i] - 9;
+              vetorComplemento2[i] = -vetorComplemento2[i];
+            }
           }
 
-          show_process.innerHTML += `<br><br>Logo, seu resultado é:<br>`
-          show_process.innerHTML += `${vetorParaExpor[0]} | ${vetorParaExpor[1]} | ${vetorParaExpor[2]}`
+          for (i = 0; i < vetor1.length; i++) {
+            if (i == 0) {
+              newVector2[0] = String(vetorComplemento2[i]);
+            } else {
+              newVector2[0] += String(vetorComplemento2[i]);
+            }
+          }
+
+          show_process.innerHTML += `${newVector2} <br><br> Agora, basta concatenar o valor subtraido por 1, de seu complemento, resultando em: ${vetorComplemento1}${newVector2}`;
+        } else {
+          show_process.innerHTML = `Pegar valor de cada numero e separar, dessa forma:<br>`;
+
+          for (i = 0; i < vetorNumeroParticionado.length; i++) {
+            if (i == vetorNumeroParticionado.length - 1) {
+              show_process.innerHTML += `${vetorNumeroParticionado[i]}`;
+            } else {
+              show_process.innerHTML += `${vetorNumeroParticionado[i]} | `;
+            }
+          }
+
+          show_process.innerHTML += `<br><br>Agora vamos fazer 3 partes:<br>ESQ | MEIO | DIR`;
+
+          show_process.innerHTML += `<br><br>Para a parte da direita, multiplicar o indice 2 do ${stringSeparada[0]} com o indice 2 do ${stringSeparada[1]}`;
+
+          show_process.innerHTML += `<br>ESQ | MEIO | ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[3]} )`;
+
+          show_process.innerHTML += `<br><br>Para a parte do meio, somar a multiplicação:<br>(indice 1 do ${stringSeparada[0]} com o indice 2 do ${stringSeparada[1]}) + (indice 2 do ${stringSeparada[0]} com o indice 1 do ${stringSeparada[1]})`;
+
+          show_process.innerHTML += `<br>ESQ | ( ${vetorNumeroParticionado[0]} x ${vetorNumeroParticionado[3]} ) + ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[2]} ) | ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[3]} )`;
+
+          show_process.innerHTML += `<br><br>Para a parte da esquerda, multiplicar o indice 1 do ${stringSeparada[0]} com o indice 1 do ${stringSeparada[1]}`;
+
+          show_process.innerHTML += `<br>( ${vetorNumeroParticionado[0]} x ${vetorNumeroParticionado[2]} ) | ( ${vetorNumeroParticionado[0]} x ${vetorNumeroParticionado[3]} ) + ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[2]} ) | ( ${vetorNumeroParticionado[1]} x ${vetorNumeroParticionado[3]} )`;
+
+          show_process.innerHTML += `<br><br>Fazendo as operações, temos:<br>`;
+          show_process.innerHTML += `${
+            vetorNumeroParticionado[0] * vetorNumeroParticionado[2]
+          } | ${
+            vetorNumeroParticionado[0] * vetorNumeroParticionado[3] +
+            vetorNumeroParticionado[1] * vetorNumeroParticionado[2]
+          } | ${vetorNumeroParticionado[1] * vetorNumeroParticionado[3]}`;
+
+          vetorParaExpor.push(
+            vetorNumeroParticionado[0] * vetorNumeroParticionado[2]
+          );
+
+          vetorParaExpor.push(
+            vetorNumeroParticionado[0] * vetorNumeroParticionado[3] +
+              vetorNumeroParticionado[1] * vetorNumeroParticionado[2]
+          );
+
+          vetorParaExpor.push(
+            vetorNumeroParticionado[1] * vetorNumeroParticionado[3]
+          );
+
+          let vetorAuxiliar = vetorParaExpor;
+
+          if (vetorAuxiliar[2] > 10 || vetorAuxiliar[1] > 10) {
+            if (vetorAuxiliar[2] > 10) {
+              show_process.innerHTML += `<br><br>Agora temos que tirar o ${Math.floor(
+                vetorAuxiliar[2] / 10
+              )} do ${vetorAuxiliar[2]} e adicionar ao ${
+                vetorAuxiliar[1]
+              }:<br>`;
+              show_process.innerHTML += `${vetorParaExpor[0]} | ${
+                vetorParaExpor[1]
+              } + ${Math.floor(vetorAuxiliar[2] / 10)} | ${
+                vetorAuxiliar[2] % 10
+              }`;
+              vetorParaExpor[1] += Math.floor(vetorAuxiliar[2] / 10);
+              vetorParaExpor[2] = vetorAuxiliar[2] % 10;
+            }
+
+            if (vetorAuxiliar[1] > 10) {
+              show_process.innerHTML += `<br><br>Agora temos que tirar o ${Math.floor(
+                vetorAuxiliar[1] / 10
+              )} do ${vetorAuxiliar[1]} e adicionar ao ${
+                vetorAuxiliar[0]
+              }:<br>`;
+              show_process.innerHTML += `${vetorParaExpor[0]} + ${Math.floor(
+                vetorAuxiliar[1] / 10
+              )} | ${vetorParaExpor[1] % 10} | ${vetorParaExpor[2]}`;
+              vetorParaExpor[0] += Math.floor(vetorAuxiliar[1] / 10);
+              vetorParaExpor[1] = vetorAuxiliar[1] % 10;
+            }
+
+            show_process.innerHTML += `<br><br>Logo, seu resultado é:<br>`;
+            show_process.innerHTML += `${vetorParaExpor[0]} | ${vetorParaExpor[1]} | ${vetorParaExpor[2]}`;
+          }
+
+          show_process.innerHTML += `<br><br>Basta juntar os valores!`;
+
+          show_process.innerHTML += `<br><br>Resultado: ${vetorParaExpor[0]}${vetorParaExpor[1]}${vetorParaExpor[2]}`;
         }
-        
-        show_process.innerHTML += `<br><br>Basta juntar os valores!`
-
-        show_process.innerHTML += `<br><br>Resultado: ${vetorParaExpor[0]}${vetorParaExpor[1]}${vetorParaExpor[2]}`
-
       }
-    
+
       function divisao() {
         let i, numeroProvisorio, restoProvisorio, aux;
         let somatorio = 0;
@@ -1062,8 +1146,6 @@
           show_process.innerHTML += `<br>Teremos então ao final que o quociente = ${result} e o resto = ${rest}`;
         }
       }
-
-
     </script>
   </body>
 </html>
